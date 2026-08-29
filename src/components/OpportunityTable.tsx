@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { Fragment, useState } from "react";
 import { OpportunityDetail } from "./OpportunityDetail";
 import { CategoryTag, RouteLabel } from "./RouteTag";
 import { StatusBadge } from "./StatusBadge";
@@ -27,9 +27,8 @@ export function OpportunityTable({ rows }: { rows: Opportunity[] }) {
         </thead>
         <tbody>
           {rows.map((row, i) => (
-            <>
+            <Fragment key={row.id}>
               <tr
-                key={row.id}
                 onClick={() => setOpen(open === row.id ? null : row.id)}
                 className="cursor-pointer border-b border-border/60 hover:bg-accent/40"
               >
@@ -62,13 +61,13 @@ export function OpportunityTable({ rows }: { rows: Opportunity[] }) {
                 </td>
               </tr>
               {open === row.id && (
-                <tr key={`${row.id}-detail`}>
+                <tr>
                   <td colSpan={10} className="p-0">
                     <OpportunityDetail opp={row} />
                   </td>
                 </tr>
               )}
-            </>
+            </Fragment>
           ))}
         </tbody>
       </table>
